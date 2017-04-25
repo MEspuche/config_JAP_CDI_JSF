@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core">
+<h:head>
+<meta charset="UTF-8" />
+<title>Insert title here</title>
+<h:outputStylesheet library="css" name="style.css"/>
+</h:head>
+<body>
+	<h:form>
+	<h:messages errorClass="error"/>
+		<h:panelGrid columns="2" cellpadding="5">
+			<h:outputLabel value="NOM" />
+			<h:inputText value="#{clientBean.client.nom}" >
+			<!-- <f:validator validatorId="civiliteValidator"/> -->
+			</h:inputText>
+			<h:outputLabel value="PRENOM" />
+			<h:inputText value="#{clientBean.client.prenom}" >
+			<!-- <f:validator validatorId="civiliteValidator"/> -->
+			</h:inputText>
+		</h:panelGrid>
+		<h:commandButton type="submit" value="ADD" action="#{clientBean.add}" />
+	</h:form>
+
+	<h2>Liste des clients</h2>
+	<h:form>
+		<h:dataTable value="#{clientBean.colclient}" var="client" border="1"
+			width="200" cellpadding="5">
+			<h:column>
+				<f:facet name="header">Id</f:facet>
+				<h:outputText value="#{client.id}" />
+			</h:column>
+			<h:column>
+				<f:facet name="header">Nom</f:facet>
+				<h:outputText value="#{client.nom}" />
+			</h:column>
+
+			<h:column>
+				<f:facet name="header">Prenom</f:facet>
+				<h:outputText value="#{client.prenom}" />
+			</h:column>
+
+			<h:column>
+				<f:facet name="header">Supprimer</f:facet>
+				<h:commandLink value="supprimer" update="@form"
+					action="#{clientBean.supprimer(client)}" />
+				<!--si on veut supprimer client de la methode : <f:setPropertyActionListener value="#{client}" target="#{clientBean.client}"></f:setPropertyActionListener> -->
+			</h:column>
+
+			<h:column>
+				<f:facet name="header">MAJ</f:facet>
+				<h:commandLink value="maj" update="@form" action="#{clientBean.maj}" >
+					<f:setPropertyActionListener value="#{client}" target="#{clientBean.client}"/>
+				</h:commandLink>
+			</h:column>
+
+		</h:dataTable>
+	</h:form>
+
+</body>
+</html>
